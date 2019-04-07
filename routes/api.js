@@ -1,4 +1,4 @@
-'use strict'
+﻿'use strict'
 
 var express = require('express');
 var router = express.Router();
@@ -6,11 +6,8 @@ var request = require('request');
 var async = require('async');
 var supertest = require('supertest');
 var puppeteer = require('puppeteer');
-<<<<<<< HEAD
 var fs = require('fs');
 var progress = require('request-progress');
-=======
->>>>>>> debb1918c8c68f45069f13de82997080ff1452d7
 
 /* GET html page. */
 router.get('/getHtml/:name', function (req, res, next) {
@@ -95,7 +92,7 @@ router.get("/news", function (req, res, next) {
     var article;
     async.series([
         function (next) {
-            puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'] })
+            puppeteer.launch()
                 .then(brw => {
                     browser = brw;
                     next();
@@ -232,7 +229,7 @@ function getArticle(ele, page, resultArray, resolve, reject) {
             reject();
         });
 }
-<<<<<<< HEAD
+
 router.get("/download", function (req, res, next) {
     console.log(new Date())
     var fs = require('fs');
@@ -271,7 +268,4 @@ progress(request('https://nofile.io/g/CgYScrFXNmwRbFKEc5kvMOq7h36kDMzIyLzh1xl4OI
 })
 .pipe(res);
 })
-
-=======
->>>>>>> debb1918c8c68f45069f13de82997080ff1452d7
 module.exports = router;
