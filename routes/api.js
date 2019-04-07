@@ -6,6 +6,11 @@ var request = require('request');
 var async = require('async');
 var supertest = require('supertest');
 var puppeteer = require('puppeteer');
+<<<<<<< HEAD
+var fs = require('fs');
+var progress = require('request-progress');
+=======
+>>>>>>> debb1918c8c68f45069f13de82997080ff1452d7
 
 /* GET html page. */
 router.get('/getHtml/:name', function (req, res, next) {
@@ -227,4 +232,46 @@ function getArticle(ele, page, resultArray, resolve, reject) {
             reject();
         });
 }
+<<<<<<< HEAD
+router.get("/download", function (req, res, next) {
+    console.log(new Date())
+    var fs = require('fs');
+var request = require('request');
+var progress = require('request-progress');
+ 
+// The options argument is optional so you can omit it
+progress(request('https://nofile.io/g/CgYScrFXNmwRbFKEc5kvMOq7h36kDMzIyLzh1xl4OIUjp5eH5KGy0CyVUhewtUGN/Music.rar/'), {
+    // throttle: 2000,                    // Throttle the progress event to 2000ms, defaults to 1000ms
+    // delay: 1000,                       // Only start to emit after 1000ms delay, defaults to 0ms
+    // lengthHeader: 'x-transfer-length'  // Length header to use, defaults to content-length
+})
+.on('progress', function (state) {
+    // The state is an object that looks like this:
+    // {
+    //     percent: 0.5,               // Overall percent (between 0 to 1)
+    //     speed: 554732,              // The download speed in bytes/sec
+    //     size: {
+    //         total: 90044871,        // The total payload size in bytes
+    //         transferred: 27610959   // The transferred payload size in bytes
+    //     },
+    //     time: {
+    //         elapsed: 36.235,        // The total elapsed seconds since the start (3 decimals)
+    //         remaining: 81.403       // The remaining seconds to finish (3 decimals)
+    //     }
+    // }
+    console.log(new Date(), state);
+})
+.on('error', function (err) {
+    console.log(err)
+    // Do something with err
+})
+.on('end', function () {
+    console.log("end")
+    // Do something after request finishes
+})
+.pipe(res);
+})
+
+=======
+>>>>>>> debb1918c8c68f45069f13de82997080ff1452d7
 module.exports = router;
