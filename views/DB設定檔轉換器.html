@@ -1,0 +1,69 @@
+<html>
+
+<body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        function change() {
+            var data = "<br />";
+            var colName = [];
+            var tmpName = $('#colName').val().split("\n")
+            for (ele of tmpName) {
+                ele = ele.replace(/[\s]+/g, "").toLowerCase();
+                if (ele != "") {
+                    colName.push(ele)
+                }
+            }
+            console.log(colName)
+            var colType = [];
+            var colTypeNumber = [];
+            var tmpType = $('#colType').val().split("\n")
+            for (ele of tmpType) {
+                ele = ele.replace(/[\s]+/g, "");
+                if (ele != "") {
+                    ele = ele.replace(/,/g, "").toLowerCase();
+                    var joken = /[^\(\)]+(?=\))/g
+                    var kako = joken.exec(ele)
+                    if (kako != null) {
+                        kako = kako[0];
+                    }
+                    ele = ele.replace(/\(.*?\)/g, '')
+                    colType.push(ele)
+                    colTypeNumber.push(kako)
+                }
+            }
+            console.log(colType)
+            console.log(colTypeNumber)
+
+            if (colName.length == colName.length) {
+                for (var key in colName) {
+                    data = data + colName[key] + ": {field:'" + colName[key] + "',type:"
+                    if (colType[key] == 'charactervarying') {
+                        data = data + "Sequelize.STRING(" + colTypeNumber[key] + ")},"
+                    } else if (colType[key] == 'integer') {
+                        data = data + "Sequelize.INTEGER},"
+                    } else if (colType[key] == "doubleprecision") {
+                        data = data + 'Sequelize["DOUBLE PRECISION"]},'
+                    } else {
+                        data = data + '!!DONT @@ KNOW!!},'
+                    }
+                }
+                data += "<br />"
+                $("#output").html(JSON.stringify(data));
+            } else {
+                alert('欄位長度不同')
+            }
+        }
+    </script>
+    <label>
+        欄位名稱
+    </label><br />
+    <textarea rows="4" cols="50" id='colName'></textarea><br />
+    <label>
+        欄位型態
+    </label><br />
+    <textarea rows="4" cols="50" id='colType'></textarea><br />
+    <button onclick='change()'>轉換</button>
+    <div id='output'></div>
+</body>
+
+</html>
